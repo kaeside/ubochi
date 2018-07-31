@@ -13,3 +13,5 @@ function CurrentForecast() {
         </div> 
     )
 }
+
+export default CurrentForecast;
