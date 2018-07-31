@@ -8,8 +8,8 @@ function DailyForecast(props) {
                 <img src="" alt="cloudy"/>
             </div>
             <div className="high-low">
-                <p className="high">83&deg;</p>
-                <p className="low">76&deg;</p>
+                <p className="high">83&deg;F</p>
+                <p className="low">76&deg;F</p>
             </div>
         </div>
     )
