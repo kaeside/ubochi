@@ -25,6 +25,14 @@ class Forecast extends Component {
     componentDidMount() {
         this.fetchForecast();
     }
+    getDay = (time) => {
+        let timeStamp = new Date(time*1000);
+        let day = timeStamp.getDay();
+        return day
+    }
+    getTemperature = (temp) => {
+        return Math.round(temp)
+    }
     fetchForecast = () => {
         axios(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${apiKey}/37.8267,-122.4233`)
         .catch(error => console.error(error))
@@ -43,7 +51,7 @@ class Forecast extends Component {
         return (
         <div className="forecast">
             <CurrentForecast currentForecast={this.state.currentForecast} />
-            <DailyForecast />
+            {this.state.dailyForecast.map((item, i) => <DailyForecast key={i} summary={item.summary} />)}
         </div>
         )
     }
