@@ -1,9 +1,9 @@
 import React from 'react';
 
-function DailyForecast(props) {
+function DailyForecast({forecast}) {
     return (
         <div className="daily-forecast">
-            <p>Today</p>
+            <p></p>
             <div className="weather-icon">
                 <img src="" alt="cloudy"/>
             </div>
