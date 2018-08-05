@@ -27,32 +27,8 @@ class Forecast extends Component {
     }
     getDay = (time) => {
         let dayStamp = new Date(time*1000).getDay();
-        let day;
-        switch (dayStamp) {
-            default:
-                day = "Weekday"
-                break;
-            case 0:
-                day = "Sunday";
-                break;
-            case 1:
-                day = "Monday";
-                break;
-            case 2:
-                day = "Tuesday";
-                break;
-            case 3:
-                day = "Wednesday";
-                break;
-            case 4:
-                day = "Thursday";
-                break;
-            case 5:
-                day = "Friday";
-                break;
-            case 6:
-                day = "Saturday";
-        }
+        const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        let day = weekDays[dayStamp];
         return day
     }
     getTemperature = (temp) => {
