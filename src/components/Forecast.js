@@ -26,10 +26,13 @@ class Forecast extends Component {
         this.fetchForecast();
     }
     getDay = (time) => {
-        let dayStamp = new Date(time*1000).getDay();
+        const dayStamp = new Date(time*1000).getDay();
         const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        let day = weekDays[dayStamp];
-        return day
+        if (dayStamp || dayStamp === 0) {
+            return weekDays[dayStamp];
+        } else {
+            return 'Weekday'
+        }
     }
     getTemperature = (temp) => {
         return Math.round(temp)
