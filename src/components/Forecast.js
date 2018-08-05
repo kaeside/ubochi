@@ -51,7 +51,7 @@ class Forecast extends Component {
         return (
         <div className="forecast">
             <CurrentForecast currentForecast={this.state.currentForecast} />
-            {this.state.dailyForecast.map((forecast, i) => <DailyForecast key={i} forecast={forecast} />)}
+            {this.state.dailyForecast.splice(0,5).map((forecast, i) => <DailyForecast key={i} forecast={forecast} />)}
         </div>
         )
     }
