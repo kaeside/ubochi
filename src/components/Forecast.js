@@ -26,8 +26,33 @@ class Forecast extends Component {
         this.fetchForecast();
     }
     getDay = (time) => {
-        let timeStamp = new Date(time*1000);
-        let day = timeStamp.getDay();
+        let dayStamp = new Date(time*1000).getDay();
+        let day;
+        switch (dayStamp) {
+            default:
+                day = "Weekday"
+                break;
+            case 0:
+                day = "Sunday";
+                break;
+            case 1:
+                day = "Monday";
+                break;
+            case 2:
+                day = "Tuesday";
+                break;
+            case 3:
+                day = "Wednesday";
+                break;
+            case 4:
+                day = "Thursday";
+                break;
+            case 5:
+                day = "Friday";
+                break;
+            case 6:
+                day = "Saturday";
+        }
         return day
     }
     getTemperature = (temp) => {
@@ -50,7 +75,10 @@ class Forecast extends Component {
     render() {
         return (
         <div className="forecast">
-            <CurrentForecast currentForecast={this.state.currentForecast} />
+            <CurrentForecast
+                summary={this.state.currentForecast.summary}
+                temperature={this.state.currentForecast.temperature}
+            />
             {this.state.dailyForecast.splice(0,5).map((forecast, i) => <DailyForecast key={i} forecast={forecast} />)}
         </div>
         )

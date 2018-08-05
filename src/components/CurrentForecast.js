@@ -1,12 +1,11 @@
 import React from 'react';
 
-function CurrentForecast({currentForecast}) {
-    console.log(currentForecast);
+function CurrentForecast({summary, temperature}) {
     return(
         <div className="current-forecast">
             <div className="forecast-info">
-                <p>{currentForecast.summary}</p>
-                <p>{currentForecast.temperature}&deg;F</p>
+                <p>{summary}</p>
+                <p>{temperature}&deg;F</p>
             </div>
             <div className="forecast-icon">
                 <img src="" alt="sunny"/>
