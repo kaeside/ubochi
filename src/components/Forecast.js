@@ -61,7 +61,15 @@ class Forecast extends Component {
                 summary={this.state.currentForecast.summary}
                 temperature={this.state.currentForecast.temperature}
             />
-            {this.state.dailyForecast.splice(0,5).map((forecast, i) => <DailyForecast key={i} forecast={forecast} day={this.getDay(forecast.time)} />)}
+            {this.state.dailyForecast.splice(0,5).map((forecast, i) => {
+                return <DailyForecast 
+                            key={i} 
+                            icon={forecast.icon}
+                            day={this.getDay(forecast.time)}
+                            tempHigh={this.getTemperature(forecast.temperatureHigh)}
+                            tempLow={this.getTemperature(forecast.temperatureLow)} 
+                        />
+            })}
         </div>
         )
     }

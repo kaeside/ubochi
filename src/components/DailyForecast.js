@@ -1,15 +1,15 @@
 import React from 'react';
 
-function DailyForecast({forecast, day}) {
+function DailyForecast({icon, day, tempHigh, tempLow}) {
     return (
         <div className="daily-forecast">
             <p>{day}</p>
             <div className="weather-icon">
-                <img src="" alt={forecast.icon}/>
+                <img src="" alt={icon}/>
             </div>
             <div className="high-low">
-                <p className="high">{forecast.temperatureHigh}&deg;F</p>
-                <p className="low">{forecast.temperatureLow}&deg;F</p>
+                <p className="high">{tempHigh}&deg;F</p>
+                <p className="low">{tempLow}&deg;F</p>
             </div>
         </div>
     )
