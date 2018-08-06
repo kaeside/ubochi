@@ -3,8 +3,6 @@ import CurrentForecast from './CurrentForecast';
 import DailyForecast from './DailyForecast';
 import axios from 'axios';
 
-const apiKey = process.env.REACT_APP_DARK_SKY_API_KEY;
-
 class Forecast extends Component {
     state = {
         latitude: 0,
@@ -20,7 +18,8 @@ class Forecast extends Component {
                 temperatureLow: 0,
                 temperatureHigh: 0
             }
-        ]
+        ],
+        units: 'auto'
     }
     componentDidMount() {
         this.fetchForecast();
@@ -34,11 +33,15 @@ class Forecast extends Component {
             return 'Weekday'
         }
     }
+    setForecastUnits = (units) => {
+        let unitsArray = ['auto', 'ca', 'us', 'si'];
+        let forecastUnits = this.state.units;
+    }
     getTemperature = (temp) => {
         return Math.round(temp)
     }
     fetchForecast = () => {
-        axios(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${apiKey}/37.8267,-122.4233`)
+        axios(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_API_KEY}/37.8267,-122.4233?units=${this.state.units}`)
         .catch(error => console.error(error))
         .then(response => {
             this.setState((prevState, props) => {
