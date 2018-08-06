@@ -3,7 +3,7 @@ import CurrentForecast from './CurrentForecast';
 import DailyForecast from './DailyForecast';
 import axios from 'axios';
 
-const apiKey = 'f6d6744f7230084cd2e66ef11f234190';
+const apiKey = process.env.REACT_APP_DARK_SKY_API_KEY;
 
 class Forecast extends Component {
     state = {
