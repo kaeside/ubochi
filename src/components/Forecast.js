@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import CurrentForecast from './CurrentForecast';
 import DailyForecast from './DailyForecast';
+import SearchModal from './SearchModal'
 import axios from 'axios';
 
 class Forecast extends Component {
     state = {
+        searchInputValue: '',
         latitude: 36.081944,
         longitude: -115.124722,
         city: 'Paradise',
@@ -45,11 +47,18 @@ class Forecast extends Component {
         return Math.round(temp)
     }
     getLatandLongFromAddress = () => {
-        axios.get('https://nominatim.openstreetmap.org/search/', {
+        // axios.get('https://nominatim.openstreetmap.org/search/', {
+        //     params: {
+        //         q: '11 W 53rd St, New York, NY 10019',
+        //         format: 'json',
+        //         addressdetails: 1,
+        //     }
+        // })
+        axios.get('https://maps.googleapis.com/maps/api/place/autocomplete/', {
             params: {
-                q: '11 W 53rd St, New York, NY 10019',
-                format: 'json',
-                addressdetails: 1,
+                input: this.state.searchInputValue,
+                output: 'json',
+                key: process.env.REACT_APP_GMAPS_PLACES_API_KEY
             }
         })
         .then(response => {
@@ -101,6 +110,7 @@ class Forecast extends Component {
     render() {
         return (
         <div className="forecast">
+            <SearchModal value={this.state.searchInputValue} />
             <CurrentForecast
                 summary={this.state.currentForecast.summary}
                 temperature={this.state.currentForecast.temperature}
