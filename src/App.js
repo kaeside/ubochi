@@ -12,7 +12,6 @@ class App extends Component {
           <h1 className="App-title">Welcome to Ubochi!</h1>
         </header>
         <Forecast />
-        <button></button>
       </div>
     );
   }

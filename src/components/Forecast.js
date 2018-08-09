@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
-import CurrentForecast from './CurrentForecast';
 import DailyForecast from './DailyForecast';
 import SearchModal from './SearchModal'
 import axios from 'axios';
+import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 
 class Forecast extends Component {
     state = {
-        searchInputValue: '',
-        latitude: 36.081944,
-        longitude: -115.124722,
-        city: 'Paradise',
-        state: 'Nevada',
-        zipCode: 89119,
+        lat: 36.081944,
+        lng: -115.124722,
+        formattedAddress: 'Paradise, NV 89119, USA',
         currentForecast: {
             summary: 'Weather Summary',
             temperature: 0,
@@ -27,8 +24,7 @@ class Forecast extends Component {
         units: 'auto'
     }
     componentDidMount() {
-        this.getLatandLongFromAddress();
-        this.fetchForecast();
+        this.fetchForecast(this.state.lat, this.state.lng);
     }
     getDay = (time) => {
         const dayStamp = new Date(time*1000).getDay();
@@ -39,91 +35,65 @@ class Forecast extends Component {
             return 'Weekday'
         }
     }
-    setForecastUnits = (units) => {
-        let unitsArray = ['auto', 'ca', 'us', 'si'];
-        let forecastUnits = this.state.units;
+    handleLocationTextChange = (address) => {
+        this.setState({address})
+    }
+    handleLocationSelection = address => {
+        geocodeByAddress(address)
+            .then(results => {
+                this.setState({
+                    formattedAddress: results[0].formatted_address
+                })
+                return getLatLng(results[0])
+            })
+            .then(coord => {
+                this.setState({
+                    lat: coord.lat,
+                    lng: coord.lng
+                })
+                this.fetchForecast(this.state.lat, this.state.lng);
+            })
+            .catch(error => console.error('Error', error))
     }
     getTemperature = (temp) => {
         return Math.round(temp)
     }
-    getLatandLongFromAddress = () => {
-        // axios.get('https://nominatim.openstreetmap.org/search/', {
-        //     params: {
-        //         q: '11 W 53rd St, New York, NY 10019',
-        //         format: 'json',
-        //         addressdetails: 1,
-        //     }
-        // })
-        axios.get('https://maps.googleapis.com/maps/api/place/autocomplete/', {
-            params: {
-                input: this.state.searchInputValue,
-                output: 'json',
-                key: process.env.REACT_APP_GMAPS_PLACES_API_KEY
-            }
-        })
-        .then(response => {
-            this.setState((prevState, props) => {
-                return {
-                    latitude: 36.081944,
-                    longitude: -115.124722,
-                    city: 'Paradise',
-                    state: 'Nevada',
-                    zipCode: 89119
-                }
-            })
-            return axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_API_KEY}/${this.state.latitude},${this.state.longitude}`, {
-                params: {
-                    units: this.state.units
-                }
-            })
-        })
-        .catch(error => console.error(error))
-        .then(response => {
-            this.setState((prevState, props) => {
-                return {
-                    latitude: response.data.latitude, 
-                    longitude: response.data.longitude, 
-                    currentForecast: response.data.currently, 
-                    dailyForecast: [...response.data.daily.data]
-                }
-            })
-        })
-    }
-    fetchForecast = () => {
-        axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_API_KEY}/${this.state.latitude},${this.state.longitude}`, {
+    fetchForecast = (lat, lng) => {
+        axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_API_KEY}/${lat},${lng}`, {
             params: {
                 units: this.state.units
             }
         })
-        .catch(error => console.error(error))
         .then(response => {
             this.setState((prevState, props) => {
                 return {
-                    latitude: response.data.latitude, 
-                    longitude: response.data.longitude, 
+                    lat: response.data.latitude, 
+                    lng: response.data.longitude, 
                     currentForecast: response.data.currently, 
                     dailyForecast: [...response.data.daily.data]
                 }
             })
         })
+        .catch(error => console.error(error))
     }
     render() {
         return (
         <div className="forecast">
-            <SearchModal value={this.state.searchInputValue} />
-            <CurrentForecast
-                summary={this.state.currentForecast.summary}
-                temperature={this.state.currentForecast.temperature}
+            <SearchModal
+                handleLocationTextChange={this.handleLocationTextChange}
+                handleLocationSelection={this.handleLocationSelection} 
+                fetchForecast={this.fetchForecast}
             />
-            {this.state.dailyForecast.splice(0,5).map((forecast, i) => {
+            {this.state.dailyForecast.splice(0,5).map((forecast, index) => {
                 return <DailyForecast 
-                            key={i} 
+                            key={index} 
                             icon={forecast.icon}
                             day={this.getDay(forecast.time)}
                             tempHigh={this.getTemperature(forecast.temperatureHigh)}
                             tempLow={this.getTemperature(forecast.temperatureLow)} 
                         />
             })}
+            <p>{this.state.formattedAddress}</p>
         </div>
         )
     }
