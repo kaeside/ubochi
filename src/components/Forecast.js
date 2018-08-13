@@ -38,22 +38,21 @@ class Forecast extends Component {
     handleLocationTextChange = (address) => {
         this.setState({address})
     }
-    handleLocationSelection = address => {
-        geocodeByAddress(address)
-            .then(results => {
-                this.setState({
-                    formattedAddress: results[0].formatted_address
-                })
-                return getLatLng(results[0])
+    handleLocationSelection = async (address) => {
+        try {
+            let results = await geocodeByAddress(address)
+            this.setState({
+                formattedAddress: results[0].formatted_address
             })
-            .then(coord => {
-                this.setState({
-                    lat: coord.lat,
-                    lng: coord.lng
-                })
-                this.fetchForecast(this.state.lat, this.state.lng);
+            let coord = await getLatLng(results[0])
+            this.setState({
+                lat: coord.lat,
+                lng: coord.lng
             })
-            .catch(error => console.error('Error', error))
+            await this.fetchForecast(coord.lat, coord.lng);
+        } catch (error) {
+            console.error('Error', error)
+        } 
     }
     getTemperature = (temp) => {
         return Math.round(temp)
