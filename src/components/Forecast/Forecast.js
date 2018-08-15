@@ -38,15 +38,15 @@ class Forecast extends Component {
         const { currentForecast, dailyForecast, isLoading, units } = this.props;
         return (
         <div className="forecast">
-            <div className="weekly-forecast">
                 {isLoading ? (<Loader />) : (
                     <React.Fragment>
                         <CurrentForecast 
                             icon={this.getWeatherIcon(currentForecast.icon)}
                             currentTemp={this.getTemperature(currentForecast.temperature)}
+                            summary={currentForecast.summary}
                             units={units}
                         />
-                        {dailyForecast.slice(0, 5).map((forecast, index) => {
+                        {dailyForecast.slice(1, 5).map((forecast, index) => {
                             return (
                             <DailyForecast
                                 key={index}
@@ -54,13 +54,13 @@ class Forecast extends Component {
                                 day={this.getDay(forecast.time)}
                                 tempHigh={this.getTemperature(forecast.temperatureHigh)}
                                 tempLow={this.getTemperature(forecast.temperatureLow)}
+                                summary={forecast.summary}
                                 units={units}
                             />
                             );
                         })}
                     </React.Fragment>
                 )}
-            </div>
         </div>
         )
     }
