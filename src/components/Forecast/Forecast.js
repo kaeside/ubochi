@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
-import '../loading.css';
-import DailyForecast from './DailyForecast';
-import SearchModal from './SearchModal'
+import DailyForecast from '../Forecast/DailyForecast/DailyForecast';
+import SearchModal from '../SearchModal/SearchModal';
+import Loader from '../Loader/Loader';
 
 class Forecast extends Component {
     state = {
@@ -87,7 +87,7 @@ class Forecast extends Component {
                 fetchForecast={this.fetchForecast}
             />
             <div className="weekly-forecast">
-                {this.state.isLoading ? <div className="loader sp sp-wave"></div> : this.state.dailyForecast.slice(0,5).map((forecast, index) => {
+                {this.state.isLoading ? <Loader /> : this.state.dailyForecast.slice(0,5).map((forecast, index) => {
                     return <DailyForecast 
                                 key={index} 
                                 icon={forecast.icon}
