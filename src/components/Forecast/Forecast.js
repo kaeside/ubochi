@@ -16,6 +16,22 @@ class Forecast extends Component {
     getTemperature = (temp) => {
         return Math.round(temp)
     }
+
+    getWeatherIcon = (icon) => ({
+        'clear-day': "wi wi-day-sunny",
+        'clear-night': "wi wi-night-clear",
+        'rain': "wi wi-rain",
+        'snow': "wi wi-snow",
+        'sleet': "wi wi-sleet",
+        'wind': "wi wi-windy",
+        'fog': "wi wi-fog",
+        'cloudy': "wi wi-cloudy",
+        'partly-cloudy-day': "wi wi-day-cloudy",
+        'partly-cloudy-night': "wi wi-night-cloudy-windy",
+        'hail': "wi wi-hail",
+        'thunderstorm': "wi wi-thunderstorm",
+        'tornado': "wi wi-tornado"
+    })[icon]
     render() {
         const { dailyForecast, isLoading, units } = this.props;
         return (
@@ -24,7 +40,7 @@ class Forecast extends Component {
                 {isLoading ? <Loader /> : dailyForecast.slice(0,5).map((forecast, index) => {
                     return <DailyForecast 
                                 key={index} 
-                                icon={forecast.icon}
+                                icon={this.getWeatherIcon(forecast.icon)}
                                 day={this.getDay(forecast.time)}
                                 tempHigh={this.getTemperature(forecast.temperatureHigh)}
                                 tempLow={this.getTemperature(forecast.temperatureLow)}
