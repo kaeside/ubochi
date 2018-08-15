@@ -1,0 +1,10 @@
+.forecast {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 10%;
+}
+.weekly-forecast {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+}

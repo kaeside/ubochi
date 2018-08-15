@@ -89,6 +89,7 @@ class App extends Component {
         />
         <Forecast 
           fetchForecast={this.fetchForecast}
+          currentForecast={this.state.currentForecast}
           dailyForecast={this.state.dailyForecast}
           isLoading={this.state.isLoading}
           units={this.state.unitsSymbol}

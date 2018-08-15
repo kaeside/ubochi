@@ -1,3 +1,7 @@
 .daily-forecast {
     color: #eecac5;
+    .high-low {
+        display: flex;
+        justify-content: space-between;
+    }
 }

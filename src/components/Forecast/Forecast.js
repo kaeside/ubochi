@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import DailyForecast from '../Forecast/DailyForecast/DailyForecast';
+import CurrentForecast from './CurrentForecast/CurrentForecast'
+import DailyForecast from './DailyForecast/DailyForecast';
 import Loader from '../Loader/Loader';
+import './Forecast.css';
 
 class Forecast extends Component {
     getDay = (time) => {
@@ -33,21 +35,31 @@ class Forecast extends Component {
         'tornado': "wi wi-tornado"
     })[icon]
     render() {
-        const { dailyForecast, isLoading, units } = this.props;
+        const { currentForecast, dailyForecast, isLoading, units } = this.props;
         return (
         <div className="forecast">
             <div className="weekly-forecast">
-                {isLoading ? <Loader /> : dailyForecast.slice(0,5).map((forecast, index) => {
-                    return <DailyForecast 
-                                key={index} 
+                {isLoading ? (<Loader />) : (
+                    <React.Fragment>
+                        <CurrentForecast 
+                            icon={this.getWeatherIcon(currentForecast.icon)}
+                            currentTemp={this.getTemperature(currentForecast.temperature)}
+                            units={units}
+                        />
+                        {dailyForecast.slice(0, 5).map((forecast, index) => {
+                            return (
+                            <DailyForecast
+                                key={index}
                                 icon={this.getWeatherIcon(forecast.icon)}
                                 day={this.getDay(forecast.time)}
                                 tempHigh={this.getTemperature(forecast.temperatureHigh)}
                                 tempLow={this.getTemperature(forecast.temperatureLow)}
-                                units={units} 
+                                units={units}
                             />
-                    })
-                }
+                            );
+                        })}
+                    </React.Fragment>
+                )}
             </div>
         </div>
         )
