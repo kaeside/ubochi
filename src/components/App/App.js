@@ -23,7 +23,9 @@ class App extends Component {
               temperatureHigh: 0
           }
       ],
-      units: 'auto',
+      initialUnitsOption: 'auto',
+      currentUnitsOption: '',
+      unitsSymbol: '',
       isLoading: true
   }
   componentDidMount() {
@@ -52,7 +54,7 @@ class App extends Component {
   fetchForecast = (lat, lng) => {
       axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_API_KEY}/${lat},${lng}`, {
           params: {
-              units: this.state.units
+              units: this.state.initialUnitsOption
           }
       })
       .then(response => {
@@ -62,11 +64,16 @@ class App extends Component {
                   lng: response.data.longitude, 
                   currentForecast: response.data.currently, 
                   dailyForecast: [...response.data.daily.data],
+                  currentUnitsOption: response.data.flags.units,
                   isLoading: false
               }
           })
+          this.setUnits(response.data.flags.units)
       })
       .catch(error => console.error(error))
+  }
+  setUnits = (units) => {
+    units === 'us' ? this.setState({unitsSymbol: '°F'}) : this.setState({unitsSymbol: '°C'})
   }
   render() {
     return (
@@ -84,8 +91,7 @@ class App extends Component {
           fetchForecast={this.fetchForecast}
           dailyForecast={this.state.dailyForecast}
           isLoading={this.state.isLoading}
-          lat={this.state.lat}
-          lng={this.state.lng}
+          units={this.state.unitsSymbol}
         />
       <footer>
         <p>{this.state.formattedAddress}</p>

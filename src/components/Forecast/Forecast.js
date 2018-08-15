@@ -16,9 +16,8 @@ class Forecast extends Component {
     getTemperature = (temp) => {
         return Math.round(temp)
     }
-    
     render() {
-        const { dailyForecast, isLoading } = this.props;
+        const { dailyForecast, isLoading, units } = this.props;
         return (
         <div className="forecast">
             <div className="weekly-forecast">
@@ -28,7 +27,8 @@ class Forecast extends Component {
                                 icon={forecast.icon}
                                 day={this.getDay(forecast.time)}
                                 tempHigh={this.getTemperature(forecast.temperatureHigh)}
-                                tempLow={this.getTemperature(forecast.temperatureLow)} 
+                                tempLow={this.getTemperature(forecast.temperatureLow)}
+                                units={units} 
                             />
                     })
                 }
