@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import DailyForecast from './DailyForecast';
-import SearchModal from './SearchModal'
 import axios from 'axios';
 import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
+import '../loading.css';
+import DailyForecast from './DailyForecast';
+import SearchModal from './SearchModal'
 
 class Forecast extends Component {
     state = {
@@ -21,7 +22,8 @@ class Forecast extends Component {
                 temperatureHigh: 0
             }
         ],
-        units: 'auto'
+        units: 'auto',
+        isLoading: true
     }
     componentDidMount() {
         this.fetchForecast(this.state.lat, this.state.lng);
@@ -69,7 +71,8 @@ class Forecast extends Component {
                     lat: response.data.latitude, 
                     lng: response.data.longitude, 
                     currentForecast: response.data.currently, 
-                    dailyForecast: [...response.data.daily.data]
+                    dailyForecast: [...response.data.daily.data],
+                    isLoading: false
                 }
             })
         })
@@ -83,15 +86,18 @@ class Forecast extends Component {
                 handleLocationSelection={this.handleLocationSelection} 
                 fetchForecast={this.fetchForecast}
             />
-            {this.state.dailyForecast.splice(0,5).map((forecast, index) => {
-                return <DailyForecast 
-                            key={index} 
-                            icon={forecast.icon}
-                            day={this.getDay(forecast.time)}
-                            tempHigh={this.getTemperature(forecast.temperatureHigh)}
-                            tempLow={this.getTemperature(forecast.temperatureLow)} 
-                        />
-            })}
+            <div className="weekly-forecast">
+                {this.state.isLoading ? <div className="loader sp sp-wave"></div> : this.state.dailyForecast.slice(0,5).map((forecast, index) => {
+                    return <DailyForecast 
+                                key={index} 
+                                icon={forecast.icon}
+                                day={this.getDay(forecast.time)}
+                                tempHigh={this.getTemperature(forecast.temperatureHigh)}
+                                tempLow={this.getTemperature(forecast.temperatureLow)} 
+                            />
+                    })
+                }
+            </div>
             <p>{this.state.formattedAddress}</p>
         </div>
         )
