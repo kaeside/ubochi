@@ -46,7 +46,7 @@ class Forecast extends Component {
                             summary={currentForecast.summary}
                             units={units}
                         />
-                        <div className="weekly-forecast">
+                        <div className="weekly-forecast d-sm-flex d-md-flex d-lg-flex">
                             {dailyForecast.slice(1, 5).map((forecast, index) => {
                                 return (
                                 <DailyForecast
