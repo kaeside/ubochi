@@ -72,3 +72,30 @@ function CurrentForecast(props) {
 
 export default CurrentForecast;
 ```
+
+## Writing Async/Await using promise chainign
+
+I used Async/Await with try and catch for my Axios requests from Dark Sky API.
+
+It can also be written this way using promise chaining
+
+```js
+handleLocationSelection = address => {
+    geocodeByAddress(address)
+        .then(results => {
+            this.setState({
+                formattedAddress: results[0].formatted_address
+            })
+            return getLatLng(results[0])
+        })
+        .then(coord => {
+            this.setState({
+                lat: coord.lat,
+                lng: coord.lng
+            })
+            this.fetchForecast(coord.lat, coord.lng);
+        })
+        .catch(error => console.error('Error', error))
+}
+
+```
