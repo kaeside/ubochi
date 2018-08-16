@@ -83,7 +83,9 @@ class App extends Component {
     render() {
         return (
         <div className="App" style={{backgroundColor: this.state.backgroundColor}}>
-            <button className="menu display-4" onClick={this.toggleSearchModal}>☰</button>
+            <button className="menu display-4"
+                    style={{backgroundColor: this.state.backgroundColor}}
+                    onClick={this.toggleSearchModal}>☰</button>
             <SearchModal
                 handleLocationSelection={this.handleLocationSelection} 
                 fetchForecast={this.fetchForecast}

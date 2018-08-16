@@ -56,7 +56,10 @@ class SearchModal extends Component {
                     )}
                 </PlacesAutoComplete>
                 </div>
-                <GithubPicker onChangeComplete={changeThemeColor}/>
+                <div className="color-picker">
+                    <p className="h4">Theme</p>
+                    <GithubPicker onChangeComplete={changeThemeColor}/>
+                </div>
         </div>
         )
     }

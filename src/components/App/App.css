@@ -20,7 +20,8 @@
 
 .menu {
   cursor: pointer;
-  color: #eecac5; }
+  color: #eecac5;
+  border: none; }
 
 footer p {
   color: #eecac5;

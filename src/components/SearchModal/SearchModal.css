@@ -25,35 +25,6 @@
 .search-modal-closed {
   display: none; }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  transition: background-color 5000s ease-in-out 0s; }
-
-.swatch-red {
-  background: #c54c3c; }
-
-.swatch-blue {
-  background: #423dbd; }
-
-.swatch-dark-blue {
-  background: #2d3b56; }
-
-.swatch-yellow {
-  background: #e69c1b; }
-
-.swatch-purple {
-  background: #412f40; }
-
-.swatch-orange {
-  background: #ec7145; }
-
-.swatch-wine {
-  color: #5d2433; }
-
-.swatch-green {
-  color: #2c442f; }
-
-.swatch-lime {
-  color: #8bd495; }
+.github-picker {
+  padding-top: 20px;
+  margin: 0 auto; }
