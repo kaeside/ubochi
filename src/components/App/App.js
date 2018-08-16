@@ -4,6 +4,7 @@ import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 import './App.css';
 import Forecast from '../Forecast/Forecast';
 import SearchModal from '../SearchModal/SearchModal';
+var geocoder = require('geocoder');
 
 class App extends Component {
     state = {
@@ -30,7 +31,8 @@ class App extends Component {
         backgroundColor: '#c54c3c'
     }
     componentDidMount() {
-            this.fetchForecast(this.state.lat, this.state.lng);
+        this.getLocation();
+        this.fetchForecast(this.state.lat, this.state.lng);
     }
     handleLocationSelection = async (address) => {
         try {
@@ -79,6 +81,39 @@ class App extends Component {
     }
     changeThemeColor = (color) => {
         this.setState({backgroundColor: color.hex})
+    }
+    getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.saveCoords, this.handleGeolocationErrors);
+        } else {
+            alert("Please refresh the page and enable Geolocation services in order to use this app.")
+        }
+    }
+    saveCoords = (position) => {
+        this.setState({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        })
+        this.fetchForecast(position.coords.latitude, position.coords.longitude);
+        this.getFormattedAddress();
+    }
+    handleGeolocationErrors = (error) => ({
+        'error.PERMISSION_DENIED': 'User denied the request for Geolocation.',
+        'error.POSITION_UNAVAILABLE':'Location information is unavailable.',
+        'error.TIMEOUT': 'The request to get user location timed out.',
+        'error.UNKNOWN_ERROR': 'An unknown error occurred.'
+    })[error]
+    getFormattedAddress = async () => {
+        try {
+            let results = await geocoder.reverseGeocode(this.state.lat, this.state.lng, function(err,data) { return data})
+            console.log(results);
+            // this.setState({
+                    //     formattedAddress: results
+                    // })
+        } catch (error) {
+            console.error('Error', error)
+        } 
+        // console.log(results);
     }
     render() {
         return (
