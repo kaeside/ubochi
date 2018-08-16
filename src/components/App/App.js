@@ -4,7 +4,7 @@ import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 import './App.css';
 import Forecast from '../Forecast/Forecast';
 import SearchModal from '../SearchModal/SearchModal';
-var geocoder = require('geocoder');
+import NodeGeocoder from 'node-geocoder';
 
 class App extends Component {
     state = {
@@ -104,16 +104,18 @@ class App extends Component {
         'error.UNKNOWN_ERROR': 'An unknown error occurred.'
     })[error]
     getFormattedAddress = async () => {
+        const options = {
+            provider: 'google',
+        };
+        const geocoder = NodeGeocoder(options);
         try {
-            let results = await geocoder.reverseGeocode(this.state.lat, this.state.lng, function(err,data) { return data})
-            console.log(results);
-            // this.setState({
-                    //     formattedAddress: results
-                    // })
+            let results = await geocoder.reverse({lat: this.state.lat, lon: this.state.lng})
+            this.setState({
+                formattedAddress: results[0].formattedAddress
+            })
         } catch (error) {
             console.error('Error', error)
         } 
-        // console.log(results);
     }
     render() {
         return (
