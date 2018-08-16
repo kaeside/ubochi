@@ -21,7 +21,8 @@
 .menu {
   cursor: pointer;
   color: #eecac5;
-  border: none; }
+  border: none;
+  float: left; }
 
 footer p {
   color: #eecac5;

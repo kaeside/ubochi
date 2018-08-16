@@ -46,19 +46,21 @@ class Forecast extends Component {
                             summary={currentForecast.summary}
                             units={units}
                         />
-                        {dailyForecast.slice(1, 5).map((forecast, index) => {
-                            return (
-                            <DailyForecast
-                                key={index}
-                                icon={this.getWeatherIcon(forecast.icon)}
-                                day={this.getDay(forecast.time)}
-                                tempHigh={this.getTemperature(forecast.temperatureHigh)}
-                                tempLow={this.getTemperature(forecast.temperatureLow)}
-                                summary={forecast.summary}
-                                units={units}
-                            />
-                            );
-                        })}
+                        <div className="weekly-forecast">
+                            {dailyForecast.slice(1, 5).map((forecast, index) => {
+                                return (
+                                <DailyForecast
+                                    key={index}
+                                    icon={this.getWeatherIcon(forecast.icon)}
+                                    day={this.getDay(forecast.time)}
+                                    tempHigh={this.getTemperature(forecast.temperatureHigh)}
+                                    tempLow={this.getTemperature(forecast.temperatureLow)}
+                                    summary={forecast.summary}
+                                    units={units}
+                                />
+                                );
+                            })}
+                        </div>
                     </React.Fragment>
                 )}
         </div>
