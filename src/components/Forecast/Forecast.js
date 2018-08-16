@@ -37,7 +37,7 @@ class Forecast extends Component {
     render() {
         const { currentForecast, dailyForecast, isLoading, units } = this.props;
         return (
-        <div className="forecast">
+        <div className="forecast d-flex flex-column">
                 {isLoading ? (<Loader />) : (
                     <React.Fragment>
                         <CurrentForecast 

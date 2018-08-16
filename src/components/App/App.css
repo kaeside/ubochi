@@ -1,5 +1,6 @@
 .App {
-  text-align: center; }
+  text-align: center;
+  background: #c54c3c; }
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -16,6 +17,14 @@
 
 .App-intro {
   font-size: large; }
+
+.menu {
+  cursor: pointer;
+  color: #eecac5; }
+
+footer p {
+  color: #eecac5;
+  margin-bottom: 0; }
 
 @keyframes App-logo-spin {
   from {

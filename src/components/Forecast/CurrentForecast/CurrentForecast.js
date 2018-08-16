@@ -9,10 +9,10 @@ function CurrentForecast({icon, currentTemp, units, summary}) {
                 <i className={icon + ' display-1'}></i>
             </div>
             <div className="current-temperature">
-                <p>{currentTemp + " " + units}</p>
+                <p className="h3">{currentTemp + " " + units}</p>
             </div>
-            <p>Now</p>
-            <p className="summary">{summary}</p>
+            <p className="h1">Now</p>
+            <p className="summary h2">{summary}</p>
         </div>
     )
 }

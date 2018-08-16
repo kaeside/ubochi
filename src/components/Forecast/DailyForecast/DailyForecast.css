@@ -1,5 +1,11 @@
 .daily-forecast {
-  color: #eecac5; }
-  .daily-forecast .high-low {
-    display: flex;
-    justify-content: space-between; }
+  color: #eecac5;
+  padding: 20px 0;
+  max-width: 200px;
+  margin: 0 auto; }
+  .daily-forecast .high-low .high, .daily-forecast .high-low .low {
+    padding: 20px 5px 0; }
+  .daily-forecast .high-low .low {
+    opacity: 0.5; }
+  .daily-forecast .day {
+    margin-bottom: 0; }

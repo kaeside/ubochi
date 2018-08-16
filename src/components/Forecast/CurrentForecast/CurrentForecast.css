@@ -1,0 +1,7 @@
+.current-forecast {
+  padding: 40px 0;
+  color: #eecac5; }
+  .current-forecast .current-temperature {
+    padding: 30px 0 10px; }
+  .current-forecast .h1 {
+    font-weight: 100; }

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
-import logo from '../../assets/logos/logo.svg';
 import './App.css';
 import Forecast from '../Forecast/Forecast';
 import SearchModal from '../SearchModal/SearchModal';
@@ -26,13 +25,11 @@ class App extends Component {
         initialUnitsOption: 'auto',
         currentUnitsOption: '',
         unitsSymbol: '',
-        isLoading: true
+        isLoading: true,
+        searchModalOpened: false
     }
     componentDidMount() {
             this.fetchForecast(this.state.lat, this.state.lng);
-    }
-    handleLocationTextChange = (address) => {
-        this.setState({address})
     }
     handleLocationSelection = async (address) => {
         try {
@@ -47,6 +44,7 @@ class App extends Component {
                 isLoading: true
             })
             await this.fetchForecast(coord.lat, coord.lng);
+            this.toggleSearchModal();
         } catch (error) {
             console.error('Error', error)
         } 
@@ -75,17 +73,18 @@ class App extends Component {
     setUnits = (units) => {
         units === 'us' ? this.setState({unitsSymbol: '°F'}) : this.setState({unitsSymbol: '°C'})
     }
+    toggleSearchModal = () => {
+        this.setState({searchModalOpened : !this.state.searchModalOpened})
+    }
     render() {
         return (
         <div className="App">
-            <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo"/>
-            <h1 className="App-title">Welcome to Ubochi!</h1>
-            </header>
+            <button className="menu display-4" onClick={this.toggleSearchModal}>☰</button>
             <SearchModal
-            handleLocationTextChange={this.handleLocationTextChange}
             handleLocationSelection={this.handleLocationSelection} 
             fetchForecast={this.fetchForecast}
+            searchModalOpened={this.state.searchModalOpened}
+            toggleSearchModal={this.toggleSearchModal}
             />
             <Forecast 
             fetchForecast={this.fetchForecast}
