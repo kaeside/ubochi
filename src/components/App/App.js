@@ -26,7 +26,8 @@ class App extends Component {
         currentUnitsOption: '',
         unitsSymbol: '',
         isLoading: true,
-        searchModalOpened: false
+        searchModalOpened: false,
+        backgroundColor: '#c54c3c'
     }
     componentDidMount() {
             this.fetchForecast(this.state.lat, this.state.lng);
@@ -76,22 +77,26 @@ class App extends Component {
     toggleSearchModal = () => {
         this.setState({searchModalOpened : !this.state.searchModalOpened})
     }
+    changeThemeColor = (color) => {
+        this.setState({backgroundColor: color.hex})
+    }
     render() {
         return (
-        <div className="App">
+        <div className="App" style={{backgroundColor: this.state.backgroundColor}}>
             <button className="menu display-4" onClick={this.toggleSearchModal}>☰</button>
             <SearchModal
-            handleLocationSelection={this.handleLocationSelection} 
-            fetchForecast={this.fetchForecast}
-            searchModalOpened={this.state.searchModalOpened}
-            toggleSearchModal={this.toggleSearchModal}
+                handleLocationSelection={this.handleLocationSelection} 
+                fetchForecast={this.fetchForecast}
+                searchModalOpened={this.state.searchModalOpened}
+                toggleSearchModal={this.toggleSearchModal}
+                changeThemeColor={this.changeThemeColor}
             />
             <Forecast 
-            fetchForecast={this.fetchForecast}
-            currentForecast={this.state.currentForecast}
-            dailyForecast={this.state.dailyForecast}
-            isLoading={this.state.isLoading}
-            units={this.state.unitsSymbol}
+                fetchForecast={this.fetchForecast}
+                currentForecast={this.state.currentForecast}
+                dailyForecast={this.state.dailyForecast}
+                isLoading={this.state.isLoading}
+                units={this.state.unitsSymbol}
             />
         <footer>
             <p>{this.state.formattedAddress}</p>

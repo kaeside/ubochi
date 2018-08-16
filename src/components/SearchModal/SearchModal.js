@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PlacesAutoComplete from 'react-places-autocomplete';
 import './SearchModal.css';
+import {GithubPicker} from 'react-color';
 
 class SearchModal extends Component {
     state = {
@@ -8,7 +9,7 @@ class SearchModal extends Component {
     }
     handleLocationTextChange = (address) => this.setState({address})
     render() {
-        const { handleLocationSelection, searchModalOpened, toggleSearchModal } = this.props
+        const { handleLocationSelection, searchModalOpened, toggleSearchModal, changeThemeColor } = this.props
         const { address } = this.state
         let searchModalclass = searchModalOpened ? "search-modal search-modal-opened" : "search-modal search-modal-closed" 
         return (
@@ -55,6 +56,7 @@ class SearchModal extends Component {
                     )}
                 </PlacesAutoComplete>
                 </div>
+                <GithubPicker onChangeComplete={changeThemeColor}/>
         </div>
         )
     }
