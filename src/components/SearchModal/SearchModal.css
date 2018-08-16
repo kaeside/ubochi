@@ -25,6 +25,8 @@
 .search-modal-closed {
   display: none; }
 
-.github-picker {
-  padding-top: 20px;
-  margin: 0 auto; }
+.color-picker {
+  padding-top: 150px; }
+  .color-picker .github-picker {
+    padding-top: 20px;
+    margin: 0 auto; }
