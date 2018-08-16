@@ -1,0 +1,59 @@
+.search-modal {
+  background: #eecac5;
+  height: 100%;
+  width: 300px;
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-flow: column wrap; }
+  .search-modal .close {
+    display: block;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    align-self: flex-end; }
+  .search-modal .search-form {
+    max-width: 240px;
+    margin: 0 auto; }
+    .search-modal .search-form .search-form-container {
+      width: 100%; }
+
+.search-modal-opened {
+  display: flex; }
+
+.search-modal-closed {
+  display: none; }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s; }
+
+.swatch-red {
+  background: #c54c3c; }
+
+.swatch-blue {
+  background: #423dbd; }
+
+.swatch-dark-blue {
+  background: #2d3b56; }
+
+.swatch-yellow {
+  background: #e69c1b; }
+
+.swatch-purple {
+  background: #412f40; }
+
+.swatch-orange {
+  background: #ec7145; }
+
+.swatch-wine {
+  color: #5d2433; }
+
+.swatch-green {
+  color: #2c442f; }
+
+.swatch-lime {
+  color: #8bd495; }

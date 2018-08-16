@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PlacesAutoComplete from 'react-places-autocomplete';
+import './SearchModal.css';
 
 class SearchModal extends Component {
     state = {
@@ -7,17 +8,21 @@ class SearchModal extends Component {
     }
     handleLocationTextChange = (address) => this.setState({address})
     render() {
-        const { handleLocationSelection } = this.props
+        const { handleLocationSelection, searchModalOpened, toggleSearchModal } = this.props
         const { address } = this.state
+        let searchModalclass = searchModalOpened ? "search-modal search-modal-opened" : "search-modal search-modal-closed" 
         return (
-            <div className="search-modal">
+            <div className={searchModalclass}>
+                <button className="close" onClick={toggleSearchModal}>X</button>
+                <div className="search-form">
+                <p className="h4">Select a City</p>
                 <PlacesAutoComplete
                     value={address}
                     onChange={this.handleLocationTextChange}
                     onSelect={handleLocationSelection}
                 >
                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                    <div>
+                    <div className="search-form-container">
                         <input
                         {...getInputProps({
                             placeholder: 'Search Location ...',
@@ -49,6 +54,7 @@ class SearchModal extends Component {
                     </div>
                     )}
                 </PlacesAutoComplete>
+                </div>
         </div>
         )
     }
