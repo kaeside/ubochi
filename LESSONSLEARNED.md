@@ -1,3 +1,6 @@
+# Lessons Learned
+This serves as a log of personal lessons learned while developing this application.
+
 ## Using React Fragment in Forecast Component
 JSX always needs a single root node, or it needs to be in an array
 React.Fragment is a way to get that without introducing unnecessary divs or something
