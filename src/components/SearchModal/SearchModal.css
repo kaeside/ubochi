@@ -18,6 +18,10 @@
     margin: 0 auto; }
     .search-modal .search-form .search-form-container {
       width: 100%; }
+  .search-modal .autocomplete-dropdown-container {
+    position: absolute;
+    left: 40px;
+    z-index: 2; }
 
 .search-modal-opened {
   display: flex; }

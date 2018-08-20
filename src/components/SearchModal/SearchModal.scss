@@ -21,6 +21,11 @@
             width: 100%;
         }
     }
+    .autocomplete-dropdown-container {
+        position: absolute;
+        left: 40px;
+        z-index: 2;
+    }
 }
 
 .search-modal-opened {
