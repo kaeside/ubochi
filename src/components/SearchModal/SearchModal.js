@@ -36,7 +36,6 @@ class SearchModal extends Component {
                             const className = suggestion.active
                             ? 'suggestion-item--active'
                             : 'suggestion-item';
-                            // call fetchForecast onClick for each element
                             const style = suggestion.active
                             ? { backgroundColor: '#fafafa', cursor: 'pointer' }
                             : { backgroundColor: '#ffffff', cursor: 'pointer' };
