@@ -6,7 +6,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  flex-flow: column wrap; }
+  flex-flow: column wrap;
+  opacity: 0.9; }
   .search-modal .close {
     display: block;
     width: 50px;
